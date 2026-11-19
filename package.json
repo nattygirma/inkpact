@@ -1,0 +1,25 @@
+{
+  "name": "inkpact",
+  "version": "0.1.1",
+  "type": "module",
+  "dependencies": {
+    "hono": "^4.13.19",
+    "pdf-lib": "^1.17.1"
+  },
+  "devDependencies": {
+    "@cloudflare/workers-types": "^5.20261118.1",
+    "@fontsource-variable/inter": "^5.3.0",
+    "@fontsource/dancing-script": "^5.3.0",
+    "esbuild": "^0.28.2",
+    "pdfjs-dist": "^6.5.438",
+    "typescript": "^7.0.2"
+  },
+  "scripts": {
+    "build": "node build.mjs"
+  },
+  "license": "MIT",
+  "repository": {
+    "type": "git",
+    "url": "https://github.com/nattygirma/inkpact"
+  }
+}

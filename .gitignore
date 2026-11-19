@@ -1,0 +1,7 @@
+node_modules
+dist
+public/assets
+.appkeep
+.dev.vars
+FRICTION.md
+.DS_Store

@@ -1,0 +1,152 @@
+{
+  "schema": 1,
+  "slug": "inkpact",
+  "name": "Inkpact",
+  "version": "0.1.1",
+  "tagline": "Free e-signatures: send a PDF, get it signed, download the signed copy with an audit trail.",
+  "description": "Inkpact is a free alternative to paid e-signature services. Upload a PDF, place signature, initials, date, name, text and checkbox fields for one or more signers, and send each signer a private signing link (emailed, and always shown to you to copy). Signers draw or type their signature with no account. You see each envelope move from sent to viewed to signed to completed, then download the finished PDF with every signature stamped in and a certificate of completion: who signed, when, from which IP address and browser, plus SHA-256 fingerprints of the original and signed files. Save any envelope as a reusable template.",
+  "category": "productivity",
+  "license": "MIT",
+  "replaces": [
+    {
+      "name": "DocuSign",
+      "monthly_cents": 1500
+    }
+  ],
+  "price_cents": 0,
+  "license": "source-available",
+  "entry": "src/index.ts",
+  "migrations": "migrations",
+  "healthcheck": "/healthz",
+  "build": {
+    "command": "node build.mjs",
+    "prebuilt": "dist/worker.js",
+    "assets": "public"
+  },
+  "egress": [],
+  "services": [
+    {
+      "name": "storage",
+      "why": "Keeps the PDFs you upload and the signed copies, so you and your signers can download them."
+    },
+    {
+      "name": "email",
+      "why": "Emails each signer their private signing link, and tells you when someone signs or declines."
+    }
+  ],
+  "ratelimits": [
+    {
+      "name": "SIGN_LIMIT",
+      "limit": 30,
+      "period": 60
+    }
+  ],
+  "settings": [
+    {
+      "key": "ORG_NAME",
+      "label": "Your name or company, as signers see it",
+      "help": "Shown on signing pages and in signing emails. Leave it empty to use the sender's own name.",
+      "default": ""
+    }
+  ],
+  "tools": [
+    {
+      "name": "list_envelopes",
+      "description": "Lists envelopes (documents sent for signature), newest first. Returns id, title, status (draft, sent, completed, declined, voided), sent_at and completed_at.",
+      "risk": "read",
+      "input": {
+        "type": "object",
+        "properties": {
+          "status": {
+            "type": "string",
+            "enum": [
+              "draft",
+              "sent",
+              "completed",
+              "declined",
+              "voided"
+            ]
+          },
+          "limit": {
+            "type": "integer",
+            "minimum": 1,
+            "maximum": 100
+          }
+        }
+      }
+    },
+    {
+      "name": "get_envelope_status",
+      "description": "Gets one envelope's status and each signer's status (sent, viewed, signed, declined) with viewed and signed times.",
+      "risk": "read",
+      "input": {
+        "type": "object",
+        "properties": {
+          "id": {
+            "type": "string",
+            "description": "Envelope id from list_envelopes"
+          }
+        },
+        "required": [
+          "id"
+        ]
+      }
+    }
+  ],
+  "include_source": true,
+  "allow_changes": true,
+  "icon": "icon.svg",
+  "features": [
+    {
+      "title": "Any PDF, any number of signers",
+      "body": "Upload a PDF and place signature, initials, date, name, text and checkbox fields for up to 20 signers.",
+      "media": "store/02-editor-fields.jpg"
+    },
+    {
+      "title": "Links you can see",
+      "body": "Each signer gets a private signing link by email, and you can always copy it yourself."
+    },
+    {
+      "title": "No account for signers",
+      "body": "Signers draw or type their signature in the browser and sign in a minute.",
+      "media": "store/05-signer-filled.jpg"
+    },
+    {
+      "title": "Live status",
+      "body": "See every envelope move from sent to viewed to signed to completed.",
+      "media": "store/07-completed.jpg"
+    },
+    {
+      "title": "Audit trail built in",
+      "body": "The signed PDF ends with a certificate of completion: who signed, when, from which IP and browser, with SHA-256 fingerprints.",
+      "media": "store/08-certificate.jpg"
+    },
+    {
+      "title": "Templates",
+      "body": "Save any envelope as a template and reuse its fields."
+    }
+  ],
+  "screenshots": [
+    {
+      "src": "store/demo.mp4",
+      "poster": "store/demo-poster.jpg",
+      "caption": "Upload a PDF, place fields, send, sign: the whole flow in 90 seconds"
+    },
+    {
+      "src": "store/02-editor-fields.jpg",
+      "caption": "Drag signature, initials, date and text fields onto any page"
+    },
+    {
+      "src": "store/05-signer-filled.jpg",
+      "caption": "Signers sign in the browser, no account needed"
+    },
+    {
+      "src": "store/07-completed.jpg",
+      "caption": "Watch each envelope go from sent to completed"
+    },
+    {
+      "src": "store/08-certificate.jpg",
+      "caption": "Every signed PDF ends with a certificate and audit trail"
+    }
+  ]
+}
