@@ -2,11 +2,12 @@
   "schema": 1,
   "slug": "inkpact",
   "name": "Inkpact",
-  "version": "0.1.1",
+  "version": "0.1.2",
   "tagline": "Free e-signatures: send a PDF, get it signed, download the signed copy with an audit trail.",
   "description": "Inkpact is a free alternative to paid e-signature services. Upload a PDF, place signature, initials, date, name, text and checkbox fields for one or more signers, and send each signer a private signing link (emailed, and always shown to you to copy). Signers draw or type their signature with no account. You see each envelope move from sent to viewed to signed to completed, then download the finished PDF with every signature stamped in and a certificate of completion: who signed, when, from which IP address and browser, plus SHA-256 fingerprints of the original and signed files. Save any envelope as a reusable template.",
   "category": "productivity",
   "license": "MIT",
+  "repository": "https://github.com/nattygirma/inkpact",
   "replaces": [
     {
       "name": "DocuSign",
